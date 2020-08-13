@@ -10,7 +10,8 @@
   "scripts": {
     "dev:electron": "NODE_ENV=development webpack --config webpack.electron.config.js --mode development && electron .",
     "dev:react": "NODE_ENV=development webpack-dev-server --config webpack.react.config.js --mode development",
-    "test": "jest"
+    "lint": "node_modules/eslint/bin/eslint.js",
+    "test": "node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
