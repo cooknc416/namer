@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -6,7 +7,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
     mainFields: ['main', 'module', 'browser']
   },
-  entry: './src/index.tsx',
+  entry: './src/react/index.tsx',
   target: 'electron-renderer',
   devtool: 'source-map',
   module: {
