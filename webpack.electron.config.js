@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   resolve: {
@@ -21,5 +22,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].js'
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+        ...process.env.stringified,
+        'process.env.FLUENTFFMPEG_COV': false
+    })
+  ]
 };
