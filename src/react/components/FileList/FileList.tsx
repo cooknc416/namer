@@ -21,7 +21,7 @@ export const FileList = (props: FileListProps) => {
     files 
   } = props;
 
-  ipcRenderer.on('video-data-async', (event, data) => {
+  ipcRenderer.on('video-data-async', (event: any, data: any) => {
     console.log(data);
   });
 
@@ -30,7 +30,6 @@ export const FileList = (props: FileListProps) => {
       justifyContent='center'
       alignItems='center'
       flexDirection='column'
-      spacing={2}
     >
       {files.map((file: File) => <File key={file.name}>{file.name}</File>)}
     </Grid>

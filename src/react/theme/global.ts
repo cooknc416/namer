@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-
 import WorkSans from '../assets/fonts/WorkSans-VariableFont_wght.ttf';
 import { theme } from './theme';
 

@@ -21,7 +21,7 @@ export const Icon = (props: IconProps) => {
 
   return (
     <FontAwesomeIcon
-      color={getColor(color)}
+      color={getColor(color as string)}
       {...rest}
     />
   );

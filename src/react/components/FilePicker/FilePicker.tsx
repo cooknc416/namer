@@ -1,14 +1,10 @@
 import React,
 { useCallback } from 'react';
-import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { useDropzone } from 'react-dropzone';
+import { ipcRenderer } from 'electron';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
-
-const {
-  ipcRenderer 
-} = window.require('electron');
 
 export interface FilePickerProps {
   onChange: (files: Array<File>) => void;
