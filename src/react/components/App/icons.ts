@@ -1,5 +1,9 @@
 export {
   faCheckSquare,
   faCoffee,
-  faFolderOpen
+  faFolderOpen,
+  faFileVideo,
+  faWeightHanging,
+  faChartArea,
+  faStopwatch
 } from '@fortawesome/free-solid-svg-icons';

@@ -66,12 +66,8 @@ export const decomposeColor = (color: string): Color => {
  * Converts a color object with type and values to a string.
  */
 export const recomposeColor = (color: Color): string => {
-  const {
-    type 
-  } = color;
-  let {
-    values 
-  } = color;
+  const { type } = color;
+  let { values } = color;
 
   if (type.indexOf('rgb') !== -1) {
     // Only convert the first 3 values to int (i.e. not alpha)
@@ -94,9 +90,7 @@ const intToHex = (int: number): string => {
  */
 export const hslToRgb = (color: string): string => {
   const decompColor = decomposeColor(color);
-  const {
-    values
-  } = decompColor;
+  const { values } = decompColor;
   const h = values[0];
   const s = values[1] / 100;
   const l = values[2] / 100;
@@ -143,9 +137,7 @@ export const rgbToHex = (color: string): string => {
     return color;
   }
 
-  const {
-    values 
-  } = decomposeColor(color);
+  const { values } = decomposeColor(color);
   return `#${values.map((n) => intToHex(n)).join('')}`;
 };
 
@@ -220,7 +212,10 @@ export const fade = (color: string, value: number) => {
 export interface Theme {
   shapes: {
     borderRadius: number;
-  }
+  },
+  font: {
+    size: any;
+  };
   palette: {
     [key: string]: any;
   };
@@ -232,16 +227,25 @@ export interface Theme {
 
 export const theme: Theme = {
   shapes: {
-    borderRadius: 1
+    borderRadius: 2
+  },
+  font: {
+    size: {
+      small: '.75em',
+      normal: '1em',
+      large: '1.333em',
+      extraLarge: '1.777em'
+    }
   },
   palette: {
     background: {
       main: '#293241',
-      secondary: '#3D5A80'
+      secondary: '#4F607D'
     },
     text: {
       primary: '#E0FBFC',
-      seoncary: '#98C1D9'
+      seoncary: '#98C1D9',
+      alternate: '#3D5A80'
     },
     primary: '#E0FBFC',
     secondary: '#98C1D9',

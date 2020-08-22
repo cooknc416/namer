@@ -10,10 +10,14 @@ import { processVideo } from './video.service';
 
 let mainWindow: Electron.BrowserWindow | null;
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
+    x: isDev ? 0 : undefined,
+    y: isDev ? 100 : undefined,
     webPreferences: {
       nodeIntegration: true
     },
@@ -21,8 +25,9 @@ const createWindow = () => {
     title: 'Namer'
   });
 
-  if (process.env.NODE_ENV === 'development') {
+  if (isDev) {
     mainWindow.loadURL('http://localhost:4000');
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({
