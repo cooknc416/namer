@@ -28,6 +28,7 @@ module.exports = {
     'comma-dangle': [2, 'never'],
     'no-trailing-spaces': 0,
     'jsx-quotes': [2, 'prefer-single'],
+    'max-len': 0,
     'react/jsx-max-props-per-line': [2, { maximum: 1, when: 'always' }],
     'react/jsx-props-no-spreading': 0,
     'react/jsx-first-prop-new-line': [2, 'multiline'],
@@ -37,7 +38,7 @@ module.exports = {
     }],
     'object-curly-newline': [2, {
       ObjectExpression: { multiline: true, minProperties: 1 },
-      ObjectPattern: { multiline: true, minProperties: 1 },
+      ObjectPattern: { multiline: true, minProperties: 2 },
       ImportDeclaration: { multiline: true, minProperties: 2 },
       ExportDeclaration: { multiline: true, minProperties: 2 }
     }],

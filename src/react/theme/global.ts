@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import WorkSans from '../assets/fonts/WorkSans-VariableFont_wght.ttf';
+import Sora from '../assets/fonts/Sora-VariableFont_wght.ttf';
 import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
@@ -32,4 +33,10 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 400;
         font-style: normal;
     }
+    @font-face {
+      font-family: 'Sora';
+      src: url(${Sora}) format('truetype');
+      font-weight: 600;
+      font-style: normal;
+  }
 `;

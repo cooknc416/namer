@@ -11,9 +11,7 @@ const getPadding = (props: any): string => {
 };
 
 const getFontSize = (props: any): string => {
-  const {
-    size 
-  } = props;
+  const { size } = props;
   if (size === 'sm') return '.75rem';
   if (size === 'lg') return '1.25rem';
   return '1rem';
@@ -34,8 +32,10 @@ const StyledButton = styled.button<ButtonProps>((props) => ({
   borderRadius: props.theme.shapes.borderRadius,
   userSelect: 'none',
   cursor: 'pointer',
+  transition: 'all .15s ease-in-out',
   '&:hover': {
-    backgroundColor: props.theme.darken(props.theme.palette.primary, 0.1)
+    backgroundColor: props.theme.darken(props.theme.palette.primary, 0.1),
+    borderColor: props.theme.darken(props.theme.palette.primary, 0.1)
   }
 }));
 

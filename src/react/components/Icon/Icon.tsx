@@ -4,9 +4,12 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps 
 } from '@fortawesome/react-fontawesome';
-import { ThemeContext } from 'styled-components';
+import styled,
+{ ThemeContext } from 'styled-components';
 
 export interface IconProps extends FontAwesomeIconProps {}
+
+export const StyledIcon = styled(FontAwesomeIcon)(() => ({}));
 
 export const Icon = (props: IconProps) => {
   const {
@@ -20,7 +23,7 @@ export const Icon = (props: IconProps) => {
   };
 
   return (
-    <FontAwesomeIcon
+    <StyledIcon
       color={getColor(color as string)}
       {...rest}
     />

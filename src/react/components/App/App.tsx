@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import styled,
 { ThemeProvider } from 'styled-components';
@@ -19,6 +20,11 @@ const StyledApp = styled.div((props) => ({
   padding: props.theme.spacing(2)
 }));
 
+const Logo = styled.h1({
+  fontFamily: '"Sora"',
+  fontSize: '4.209em'
+});
+
 export const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -29,7 +35,7 @@ export const App = () => {
           alignItems='center'
           flexDirection='column'
         >
-          <h2>Welcome to Namer</h2>
+          <Logo>Namer</Logo>
           <Home />
         </Grid>
       </StyledApp>
