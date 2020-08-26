@@ -49,4 +49,3 @@ ipcMain.on('onfileselected', async (event, fileObj) => {
 });
 
 app.on('ready', createWindow);
-app.allowRendererProcessReuse = true;
