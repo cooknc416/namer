@@ -23,6 +23,7 @@ export const FilePicker = () => {
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <Button
+        color='primary'
         size='lg'
         startIcon={(
           <Icon

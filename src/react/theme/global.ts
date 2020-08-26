@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
       color: ${theme.palette.text.primary};
       background-color: ${theme.palette.background.main};
+      font-family: 'Work Sans', sans-serif;
     }
     *, *::before, *::after {
       box-sizing: inherit;

@@ -5,5 +5,6 @@ export {
   faFileVideo,
   faWeightHanging,
   faChartArea,
-  faStopwatch
+  faStopwatch,
+  faCircle
 } from '@fortawesome/free-solid-svg-icons';

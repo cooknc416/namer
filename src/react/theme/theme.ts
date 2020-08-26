@@ -209,6 +209,10 @@ export const fade = (color: string, value: number) => {
   return recomposeColor(decompColor);
 };
 
+const getContrastText = (background: string): string => {
+  return getContrastRatio(background, '#E0FBFC') >= 3 ? '#E0FBFC' : '#243651';
+};
+
 export interface Theme {
   shapes: {
     borderRadius: number;
@@ -223,6 +227,8 @@ export interface Theme {
   darken: (color: string, coefficient: number) => string;
   lighten: (color: string, coefficient: number) => string;
   fade: (color: string, coefficient: number) => string;
+  emphasize: (color: string, coefficient: number) => string;
+  getContrastText: (background: string)=> string;
 }
 
 export const theme: Theme = {
@@ -239,20 +245,23 @@ export const theme: Theme = {
   },
   palette: {
     background: {
-      main: '#293241',
-      secondary: '#4F607D'
+      main: '#243651',
+      secondary: '#4F607D',
+      alternate: '#7c8dac'
     },
     text: {
       primary: '#E0FBFC',
-      seoncary: '#98C1D9',
+      secondary: '#98C1D9',
       alternate: '#3D5A80'
     },
     primary: '#E0FBFC',
-    secondary: '#98C1D9',
+    secondary: '#4F607D',
     danger: '#EE6C4D'
   },
   spacing: (multiplier: number): number => SPACING_BASE * multiplier,
   darken,
   lighten,
-  fade
+  fade,
+  emphasize,
+  getContrastText
 };

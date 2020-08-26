@@ -12,17 +12,18 @@ const getPadding = (props: any): string => {
 
 const getFontSize = (props: any): string => {
   const { size } = props;
-  if (size === 'sm') return '.75rem';
-  if (size === 'lg') return '1.25rem';
-  return '1rem';
+  if (size === 'sm') return props.theme.font.size.small;
+  if (size === 'lg') return props.theme.font.size.large;
+  return props.theme.font.size.normal;
 };
 
 const StyledButton = styled.button<ButtonProps>((props) => ({
   display: 'inline-flex',
   alignItems: 'center',
-  backgroundColor: props.theme.palette.primary,
+  backgroundColor: props.theme.palette[props.color] ?? props.color,
   border: '1px solid',
-  borderColor: props.theme.palette.primary,
+  borderColor: props.theme.palette[props.color] ?? props.color,
+  color: props.theme.getContrastText(props.theme.palette[props.color] ?? props.color),
   padding: getPadding(props),
   fontSize: getFontSize(props),
   fontFamily: '"Work Sans", sans-serif',
@@ -34,8 +35,8 @@ const StyledButton = styled.button<ButtonProps>((props) => ({
   cursor: 'pointer',
   transition: 'all .15s ease-in-out',
   '&:hover': {
-    backgroundColor: props.theme.darken(props.theme.palette.primary, 0.1),
-    borderColor: props.theme.darken(props.theme.palette.primary, 0.1)
+    backgroundColor: props.theme.emphasize(props.theme.palette[props.color] ?? props.color, 0.1),
+    borderColor: props.theme.emphasize(props.theme.palette[props.color] ?? props.color, 0.1)
   }
 }));
 
@@ -43,9 +44,13 @@ const StyledStartIcon = styled.div((props) => ({
   marginRight: props.theme.spacing(1)
 }));
 
+const StyledEndIcon = styled.div((props) => ({
+  marginLeft: props.theme.spacing(1)
+}));
+
 export interface ButtonProps {
   children?: React.ReactNode;
-  color?: string;
+  color: string;
   size?: 'sm' | 'lg';
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
@@ -63,6 +68,7 @@ export const Button = (props: ButtonProps) => {
     <StyledButton {...rest}>
       {startIcon && (<StyledStartIcon>{startIcon}</StyledStartIcon>)}
       {children}
+      {endIcon && (<StyledEndIcon>{endIcon}</StyledEndIcon>)}
     </StyledButton>
   );
 };

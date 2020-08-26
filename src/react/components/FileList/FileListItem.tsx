@@ -71,7 +71,7 @@ interface MetadataProps {
   metadata: MovieMetadata;
 }
 
-const Metadata = (props: MetadataProps) => {
+export const Metadata = (props: MetadataProps) => {
   const { metadata } = props;
 
   return (
