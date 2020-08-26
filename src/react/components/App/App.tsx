@@ -9,7 +9,7 @@ import {
   GlobalStyle
 } from '../../theme';
 import { Grid } from '../Grid';
-import * as icons from './icons';
+import * as icons from '../Icon/icons';
 
 library.add(icons);
 
