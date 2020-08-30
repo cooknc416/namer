@@ -42,6 +42,7 @@ module.exports = {
       ImportDeclaration: { multiline: true, minProperties: 2 },
       ExportDeclaration: { multiline: true, minProperties: 2 }
     }],
-    'modules-newline/import-declaration-newline': 2
+    'modules-newline/import-declaration-newline': 2,
+    'consistent-return': 0
   }
 }

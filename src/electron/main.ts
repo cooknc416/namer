@@ -6,7 +6,9 @@ import {
 } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { processVideo } from './video.service';
+import { IpcMainEvent } from 'electron/main';
+import { getVideoData } from './video.service';
+import { renameFile } from './modification.service';
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -43,9 +45,14 @@ const createWindow = () => {
   });
 };
 
-ipcMain.on('onfileselected', async (event, fileObj) => {
-  const videoData = await processVideo(fileObj);
+ipcMain.on('file-selected', async (event: IpcMainEvent, filePath: string) => {
+  const videoData = await getVideoData(filePath);
   event.reply('video-data-async', videoData);
+});
+
+ipcMain.on('file-rename', async (event: IpcMainEvent, renameData) => {
+  const videoData = await renameFile(renameData);
+  event.reply('file-rename-success', videoData);
 });
 
 app.on('ready', createWindow);

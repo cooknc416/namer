@@ -1,22 +1,14 @@
-import React,
-{
-  useEffect,
-  useState 
-} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {
-  unit,
-  max, 
-  mean
-} from 'mathjs';
+import { unit } from 'mathjs';
 import { format } from 'date-fns';
+import { ipcRenderer } from 'electron';
 import { Icon } from '../Icon';
 import {
   Badge,
   StyledBadge 
 } from '../Badge';
-import { searchMovie } from '../../services/moviedb';
-import { MovieMetadata } from '../../../types';
+import { Button } from '../Button';
 
 const POSTER_URL = 'https://image.tmdb.org/t/p/';
 
@@ -89,52 +81,17 @@ export const Metadata = (props: MetadataProps) => {
   );
 };
 
-export interface FileFormat {
-  bit_rate: number;
-  duration: number;
-  filename: string;
-  format_long_name: string;
-  format_name: string;
-  nb_programs: number;
-  nb_streams: number;
-  probe_score: number;
-  size: number;
-  start_time: number;
-  tags: {encoder: string, creation_time: string};
-}
-
-export interface VideoInfo {
-  streams: Array<any>;
-  chapters: Array<any>;
-  format: FileFormat;
-}
-
 interface FileListItemProps {
-  file: VideoInfo;
+  file: FileData;
 }
 
 export const FileListItem = (props: FileListItemProps) => {
-  const { file } = props;
-  const [metadata, setMetaData] = useState<MovieMetadata>();
-
-  const selectMatch = (data: Array<MovieMetadata>): void => {
-    const maxPopularity = max(data.map((item) => item.popularity));
-    const meanPopularity = mean(data.map((item) => item.popularity));
-
-    if (maxPopularity / 4 > meanPopularity) {
-      setMetaData(data[0]);
-    }
-  };
-
-  const searchForMovie = async () => {
-    try {
-      const filename = file.format.filename.substring(file.format.filename.lastIndexOf('/') + 1);
-      const { results } = await searchMovie(filename);
-      selectMatch(results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const {
+    file: {
+      videoInfo,
+      metadata 
+    } 
+  } = props;
 
   const getFileSize = (size: number): string => {
     const rawString = unit(size, 'byte').toString();
@@ -158,14 +115,22 @@ export const FileListItem = (props: FileListItemProps) => {
     return `${hrs}:${min < 10 ? `0${min}` : min}:${seconds < 10 ? `0${seconds}` : seconds}`;
   };
 
-  useEffect(() => {
-    searchForMovie();
-  }, []);
+  const onFileRename = () => {
+    ipcRenderer.send('file-rename', {
+      currentPath: videoInfo.format.filename,
+      format: {
+        string: 'title|releaseYear|height|genre',
+        delimiter: '.'
+      },
+      videoInfo,
+      metadata
+    });
+  };
 
   return (
     <File>
       <div>
-        {file.format.filename.substring(file.format.filename.lastIndexOf('/') + 1)}
+        {videoInfo?.format?.filename?.substring(videoInfo?.format?.filename?.lastIndexOf('/') + 1)}
       </div>
       <BadgeList>
         <Badge
@@ -173,31 +138,37 @@ export const FileListItem = (props: FileListItemProps) => {
           size='sm'
         >
           <Icon icon='file-video' />
-          <span>{file.format.format_long_name}</span>
+          <span>{videoInfo.format.format_long_name}</span>
         </Badge>
         <Badge
           color='primary'
           size='sm'
         >
           <Icon icon='weight-hanging' />
-          <span>{getFileSize(file.format.size)}</span>
+          <span>{getFileSize(videoInfo.format.size as number)}</span>
         </Badge>
         <Badge
           color='primary'
           size='sm'
         >
           <Icon icon='chart-area' />
-          <span>{getBitRate(file.format.bit_rate)}</span>
+          <span>{getBitRate(videoInfo.format.bit_rate as number)}</span>
         </Badge>
         <Badge
           color='primary'
           size='sm'
         >
           <Icon icon='stopwatch' />
-          <span>{getDuration(file.format.duration)}</span>
+          <span>{getDuration(videoInfo.format.duration as number)}</span>
         </Badge>
       </BadgeList>
       {metadata && (<Metadata metadata={metadata} />)}
+      <Button
+        color='primary'
+        onClick={onFileRename}
+      >
+        Rename
+      </Button>
     </File>
   );
 };

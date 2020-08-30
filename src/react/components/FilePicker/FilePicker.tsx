@@ -8,9 +8,10 @@ import { Icon } from '../Icon';
 export const FilePicker = () => {
   const onDrop = useCallback((acceptedFiles: Array<File>) => {
     acceptedFiles.forEach((file: File) => {
-      ipcRenderer.send('onfileselected', file.path);
+      ipcRenderer.send('file-selected', file.path);
     });
   }, []);
+
   const {
     getRootProps,
     getInputProps

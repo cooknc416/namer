@@ -1,8 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const DotEnv = require('dotenv-webpack');
-
-console.log(process.env.MOVIEDB_API_KEY_V4);
 
 module.exports = {
   resolve: {
@@ -51,7 +48,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Namer'
-    }),
-    new DotEnv()
+    })
   ]
 };

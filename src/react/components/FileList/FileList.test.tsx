@@ -1,6 +1,5 @@
 import React from 'react';
 import { ipcRenderer } from 'electron';
-import { mocked } from 'ts-jest/utils';
 import {
   render,
   act
@@ -9,9 +8,6 @@ import { FileList } from './FileList';
 import { Metadata } from './FileListItem';
 import mockVideoInfo from '../../../../test-utils/videoInfoMock';
 import mockMovieDbResponse from '../../../../test-utils/videoMetadataMock';
-import { searchMovie } from '../../services/moviedb';
-
-jest.mock('../../services/moviedb');
 
 const expectedValues = {
   fileName: 'Palm.Springs.2020.1080p.AVC.EAC3.6ch.mkv',
@@ -23,7 +19,6 @@ const expectedValues = {
 };
 
 test('should render the video data', () => {
-  mocked(searchMovie).mockResolvedValue(mockMovieDbResponse);
   const events: {[key: string]: any} = {};
   jest.spyOn(ipcRenderer, 'on').mockImplementation((channel, listener) => {
     events[channel] = listener;
@@ -34,7 +29,10 @@ test('should render the video data', () => {
   });
   const { getByText } = render(<FileList />);
   act(() => {
-    ipcRenderer.send('video-data-async', mockVideoInfo);
+    ipcRenderer.send('video-data-async', {
+      videoInfo: mockVideoInfo,
+      metadata: mockMovieDbResponse
+    });
   });
   const fileName = getByText(expectedValues.fileName);
   const encoder = getByText(expectedValues.encoder);
@@ -51,11 +49,12 @@ test('should render the video data', () => {
 
 test('should render a title, synopsis, and image', () => {
   const {
-    getByText, getByRole 
-  } = render(<Metadata metadata={mockMovieDbResponse.results[0]} />);
+    getByText,
+    getByRole 
+  } = render(<Metadata metadata={mockMovieDbResponse} />);
 
-  const title = getByText(mockMovieDbResponse.results[0].title);
-  const synopsis = getByText(mockMovieDbResponse.results[0].overview);
+  const title = getByText(mockMovieDbResponse.title);
+  const synopsis = getByText(mockMovieDbResponse.overview);
   const image = getByRole('img');
 
   expect(title).toBeInTheDocument();
