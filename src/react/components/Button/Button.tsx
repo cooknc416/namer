@@ -54,6 +54,7 @@ export interface ButtonProps {
   size?: 'sm' | 'lg';
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button = (props: ButtonProps) => {

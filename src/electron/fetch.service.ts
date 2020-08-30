@@ -1,3 +1,9 @@
+import fetch,
+{
+  RequestInit,
+  Response 
+} from 'node-fetch';
+
 type HttpRequestParams = {
   [key: string]: string;
 };
@@ -19,7 +25,7 @@ const handleResponse = async (response: Response) => {
 
 export const get = async (url: string, options: RequestInit, params?: HttpRequestParams): Promise<any> => {
   let requestUrl = url;
-  const requestOptions = {
+  const requestOptions: RequestInit = {
     ...options,
     method: 'GET'
   };

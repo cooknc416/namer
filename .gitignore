@@ -11,7 +11,7 @@ coverage
 *.lcov
 
 # Dependency directories
-node_modules/
+node_modules
 
 # Yarn Integrity file
 .yarn-integrity
@@ -19,3 +19,6 @@ node_modules/
 # dotenv environment variables file
 .env
 .env.test
+
+# Build
+dist
