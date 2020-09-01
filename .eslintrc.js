@@ -43,6 +43,9 @@ module.exports = {
       ExportDeclaration: { multiline: true, minProperties: 2 }
     }],
     'modules-newline/import-declaration-newline': 2,
-    'consistent-return': 0
+    'consistent-return': 0,
+    'import/no-extraneous-dependencies': [2, {
+      "devDependencies": true
+    }]
   }
 }

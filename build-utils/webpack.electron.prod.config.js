@@ -3,11 +3,11 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 module.exports = {
+  mode: 'production',
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
-  devtool: 'source-map',
-  entry: './src/electron/main.ts',
+  entry: path.resolve(__dirname, '../src/electron/main.ts'),
   target: 'electron-main',
   module: {
     rules: [
@@ -21,7 +21,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js'
   },
   plugins: [
